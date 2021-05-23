@@ -25,5 +25,6 @@ run :build
 	@./$(O)/main 
 
 clean:
-	@rm -rf $(O)/*
+	@rm -rf $(O)/*.o 
+	@rm -rf $(O)/main
 

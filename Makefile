@@ -7,6 +7,7 @@ OBJS = \
 	$(O)/node1.o \
 	$(O)/node2.o \
 	$(O)/node3.o \
+	$(O)/utils.o \
 	$(O)/main.o
 
 .PHONY: run build obj clean
@@ -16,6 +17,7 @@ obj: node0.c node1.c node2.c node3.c main.c
 	@$(CC) -c node1.c -o $(O)/node1.o $(CFLAGS)
 	@$(CC) -c node2.c -o $(O)/node2.o $(CFLAGS)
 	@$(CC) -c node3.c -o $(O)/node3.o $(CFLAGS)
+	@$(CC) -c utils.c -o $(O)/utils.o $(CFLAGS)
 	@$(CC) -c main.c  -o $(O)/main.o  $(CFLAGS)
 
 build: obj

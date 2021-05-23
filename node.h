@@ -59,4 +59,7 @@ void insertevent(struct event *p);
 void printevlist();
 void tolayer2(struct rtpkt packet);
 
+// utils.c
+int min(int a, int b);
+
 #endif

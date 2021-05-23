@@ -5,13 +5,68 @@ struct distance_table dt2;
 
 /* students to write the following two routines, and maybe some others */
 
-void rtinit2() 
-{
+void rtinit2() {
+  for(int i=0; i<4; i++) {
+    for(int j=0; j<4; j++) {
+      // init distance table
+      dt2.costs[i][j] = 999;
+    }
+  }
+
+  dt2.costs[2][0] = 3;
+  dt2.costs[2][1] = 1;
+  dt2.costs[2][2] = 0;
+  dt2.costs[2][3] = 2;
+
+  struct rtpkt pkt_to_0;
+  pkt_to_0.sourceid = 2;
+  pkt_to_0.destid = 0;
+  pkt_to_0.mincost[0] = 3;
+  pkt_to_0.mincost[1] = 1;
+  pkt_to_0.mincost[2] = 0;
+  pkt_to_0.mincost[3] = 2;
+
+  struct rtpkt pkt_to_1;
+  pkt_to_1.sourceid = 2;
+  pkt_to_1.destid = 1;
+  pkt_to_1.mincost[0] = 3;
+  pkt_to_1.mincost[1] = 1;
+  pkt_to_1.mincost[2] = 0;
+  pkt_to_1.mincost[3] = 2;
+
+  struct rtpkt pkt_to_3;
+  pkt_to_3.sourceid = 2;
+  pkt_to_3.destid = 3;
+  pkt_to_3.mincost[0] = 3;
+  pkt_to_3.mincost[1] = 1;
+  pkt_to_3.mincost[2] = 0;
+  pkt_to_3.mincost[3] = 2;
+
+  tolayer2(pkt_to_0);
+  tolayer2(pkt_to_1);
+  tolayer2(pkt_to_3);
 }
 
 
 void rtupdate2(struct rtpkt *rcvdpkt) {
+  int id = rcvdpkt->sourceid;
+  for(int i=0; i<4; i++) {
+    for(int j=0; j<4; j++) {
+      dt2.costs[i][j] = min(dt2.costs[i][j], dt2.costs[i][id]+rcvdpkt->mincost[j]);
+    }
+  }
 
+  for(int i=0; i<4; i++) {
+    if(dt2.costs[2][i] != 999 && i != 2 ) {
+      struct rtpkt pkt;
+      pkt.sourceid = 2;
+      pkt.destid = i;
+      pkt.mincost[0] = dt2.costs[2][0];
+      pkt.mincost[1] = dt2.costs[2][1];
+      pkt.mincost[2] = dt2.costs[2][2];
+      pkt.mincost[3] = dt2.costs[2][3];
+    }
+  }
 }
 
 

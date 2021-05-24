@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "node.h"
+#include "defs.h"
 
 struct distance_table dt3;
 int connect_costs4[4] = {7, 999, 2, 0};

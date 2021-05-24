@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "node.h"
+#include "defs.h"
 
 
 int connect_costs1[4] = { 1,  0,  1, 999 };

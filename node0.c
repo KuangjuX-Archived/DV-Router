@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "node.h"
+#include "defs.h"
 
 struct distance_table dt0;
 

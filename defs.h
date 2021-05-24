@@ -1,5 +1,5 @@
-#ifndef _NODE_H_
-#define _NODE_H_
+#ifndef _DEFS_H_
+#define _DFES_H_
 
 /* a rtpkt is the packet sent from one routing update process to
    another via the call tolayer3() */

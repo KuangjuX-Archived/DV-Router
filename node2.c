@@ -2,6 +2,7 @@
 #include "node.h"
 
 struct distance_table dt2;
+int connect_cost2[4] = {3, 1, 0, 2};
 
 /* students to write the following two routines, and maybe some others */
 
@@ -18,33 +19,19 @@ void rtinit2() {
   dt2.costs[2][2] = 0;
   dt2.costs[2][3] = 2;
 
-  struct rtpkt pkt_to_0;
-  pkt_to_0.sourceid = 2;
-  pkt_to_0.destid = 0;
-  pkt_to_0.mincost[0] = 3;
-  pkt_to_0.mincost[1] = 1;
-  pkt_to_0.mincost[2] = 0;
-  pkt_to_0.mincost[3] = 2;
+  for(int i=0; i<4; i++) {
+    if(connect_cost2[i] != 999 && i != 2) {
+      struct rtpkt pkt;
+      pkt.sourceid = 2;
+      pkt.destid = 3;
+      pkt.mincost[0] = 3;
+      pkt.mincost[1] = 1;
+      pkt.mincost[2] = 0;
+      pkt.mincost[3] = 2;
 
-  struct rtpkt pkt_to_1;
-  pkt_to_1.sourceid = 2;
-  pkt_to_1.destid = 1;
-  pkt_to_1.mincost[0] = 3;
-  pkt_to_1.mincost[1] = 1;
-  pkt_to_1.mincost[2] = 0;
-  pkt_to_1.mincost[3] = 2;
-
-  struct rtpkt pkt_to_3;
-  pkt_to_3.sourceid = 2;
-  pkt_to_3.destid = 3;
-  pkt_to_3.mincost[0] = 3;
-  pkt_to_3.mincost[1] = 1;
-  pkt_to_3.mincost[2] = 0;
-  pkt_to_3.mincost[3] = 2;
-
-  tolayer2(pkt_to_0);
-  tolayer2(pkt_to_1);
-  tolayer2(pkt_to_3);
+      tolayer2(pkt);
+    }
+  }
 }
 
 
@@ -56,8 +43,12 @@ void rtupdate2(struct rtpkt *rcvdpkt) {
     }
   }
 
+  // debug
+  // printdt2(&dt2);
+  printdt(&dt2, 2);
+
   for(int i=0; i<4; i++) {
-    if(dt2.costs[2][i] != 999 && i != 2 ) {
+    if(connect_cost2[i] != 999 && i != 2 ) {
       struct rtpkt pkt;
       pkt.sourceid = 2;
       pkt.destid = i;
@@ -65,6 +56,8 @@ void rtupdate2(struct rtpkt *rcvdpkt) {
       pkt.mincost[1] = dt2.costs[2][1];
       pkt.mincost[2] = dt2.costs[2][2];
       pkt.mincost[3] = dt2.costs[2][3];
+
+      tolayer2(pkt);
     }
   }
 }

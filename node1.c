@@ -2,7 +2,7 @@
 #include "node.h"
 
 
-int connectcosts1[4] = { 1,  0,  1, 999 };
+int connect_costs1[4] = { 1,  0,  1, 999 };
 
 struct distance_table dt1;
 
@@ -21,26 +21,20 @@ void rtinit1() {
   dt1.costs[1][1] = 0;
   dt1.costs[1][2] = 1;
   dt1.costs[1][3] = 999;
+  
+  for(int i=0; i<4; i++) {
+    if(connect_costs1[i] != 999 && i != 1) {
+      struct rtpkt pkt;
+      pkt.sourceid = 1;
+      pkt.destid = i;
+      pkt.mincost[0] = 1;
+      pkt.mincost[1] = 0;
+      pkt.mincost[2] = 1;
+      pkt.mincost[3] = 999;
 
-  struct rtpkt pkt_to_0;
-  pkt_to_0.sourceid = 1;
-  pkt_to_0.destid = 0;
-  pkt_to_0.mincost[0] = 1;
-  pkt_to_0.mincost[1] = 0;
-  pkt_to_0.mincost[2] = 1;
-  pkt_to_0.mincost[3] = 999;
-
-  struct rtpkt pkt_to_2;
-  pkt_to_2.sourceid = 1;
-  pkt_to_2.destid = 2;
-  pkt_to_2.mincost[0] = 1;
-  pkt_to_2.mincost[1] = 0;
-  pkt_to_2.mincost[2] = 1;
-  pkt_to_2.mincost[3] = 999;
-
-
-  tolayer2(pkt_to_0);
-  tolayer2(pkt_to_2);
+      tolayer2(pkt);
+    }
+  }
 }
 
 
@@ -52,8 +46,12 @@ void rtupdate1(struct rtpkt *rcvdpkt) {
     }
   }
 
+  // debug
+  // printdt1(&dt1);
+  printdt(&dt1, 1);
+
   for(int i=0; i<4; i++) {
-    if(dt1.costs[1][i] != 999 && i != 1) {
+    if(connect_costs1[i] != 999 && i != 1) {
       struct rtpkt pkt;
       pkt.sourceid = 1;
       pkt.destid = i;

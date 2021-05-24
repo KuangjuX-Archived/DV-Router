@@ -3,8 +3,7 @@
 #include "node.h"
 
 int min(int a, int b) {
-  if(a < b) return a;
-  return b;
+  return a<b ? a : b;
 }
 
 void panic(char* s) {
@@ -20,4 +19,13 @@ void printdt(struct distance_table *dtptr, int type) {
     }
     printf("\n");
   }
+}
+
+void printndt(struct distance_table *dtptr, int type) {
+  printf("This is %d to other nodes' distances.\n", type);
+  printf("---------------------------------------\n");
+  printf("Node|- 0 ----- 1 ------ 2 ----- 3 ----------\n");
+  printf("D%d  |  %d       %d        %d       %d         \n", type,
+  dtptr->costs[type][0], dtptr->costs[type][1], 
+  dtptr->costs[type][2], dtptr->costs[type][3]);
 }

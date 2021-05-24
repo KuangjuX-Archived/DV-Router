@@ -45,7 +45,7 @@ void rtupdate2(struct rtpkt *rcvdpkt) {
 
   // debug
   // printdt2(&dt2);
-  printdt(&dt2, 2);
+  printndt(&dt2, 2);
 
   for(int i=0; i<4; i++) {
     if(connect_cost2[i] != 999 && i != 2 ) {

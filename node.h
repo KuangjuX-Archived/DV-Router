@@ -63,5 +63,6 @@ void tolayer2(struct rtpkt packet);
 int min(int a, int b);
 void panic(char* s);
 void printdt(struct distance_table* dtptr, int type);
+void printndt(struct distance_table *dtptr, int type);
 
 #endif

@@ -13,20 +13,20 @@ void rtinit3() {
     }
   }
 
-  dt3.costs[3][0] = 7;
-  dt3.costs[3][1] = 999;
-  dt3.costs[3][2] = 2;
-  dt3.costs[3][3] = 0;
+  dt3.costs[3][0] = connect_costs4[0];
+  dt3.costs[3][1] = connect_costs4[1];
+  dt3.costs[3][2] = connect_costs4[2];
+  dt3.costs[3][3] = connect_costs4[3];
 
   for(int i=0; i<4; i++) {
     if(connect_costs4[i] != 999 && i != 3) {
       struct rtpkt pkt;
       pkt.sourceid = 3;
       pkt.destid = i;
-      pkt.mincost[0] = 7;
-      pkt.mincost[1] = 999;
-      pkt.mincost[2] = 2;
-      pkt.mincost[3] = 0;
+      pkt.mincost[0] = connect_costs4[0];
+      pkt.mincost[1] = connect_costs4[1];
+      pkt.mincost[2] = connect_costs4[2];
+      pkt.mincost[3] = connect_costs4[3];
 
       tolayer2(pkt);
     }
@@ -45,7 +45,7 @@ void rtupdate3(struct rtpkt* rcvdpkt) {
 
   // debug
   // printdt3(&dt3);
-  printndt(&dt3, 3);
+  // printndt(&dt3, 3);
 
   for(int i=0; i<4; i++) {
     if(connect_costs4[i] != 999 && i != 3 ) {

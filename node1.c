@@ -16,21 +16,24 @@ void rtinit1() {
       dt1.costs[i][j] = 999;
     }
   }
+  printf("node1:\n");
+  printndt(&dt1, 1);
   
-  dt1.costs[1][0] = 1;
-  dt1.costs[1][1] = 0;
-  dt1.costs[1][2] = 1;
-  dt1.costs[1][3] = 999;
+  dt1.costs[1][0] = connect_costs1[0];
+  dt1.costs[1][1] = connect_costs1[1];
+  dt1.costs[1][2] = connect_costs1[2];
+  dt1.costs[1][3] = connect_costs1[3];
+  printndt(&dt1, 1);
   
   for(int i=0; i<4; i++) {
     if(connect_costs1[i] != 999 && i != 1) {
       struct rtpkt pkt;
       pkt.sourceid = 1;
       pkt.destid = i;
-      pkt.mincost[0] = 1;
-      pkt.mincost[1] = 0;
-      pkt.mincost[2] = 1;
-      pkt.mincost[3] = 999;
+      pkt.mincost[0] = connect_costs1[0];
+      pkt.mincost[1] = connect_costs1[1];
+      pkt.mincost[2] = connect_costs1[2];
+      pkt.mincost[3] = connect_costs1[3];
 
       tolayer2(pkt);
     }
@@ -83,5 +86,10 @@ void linkhandler1(int linkid, int newcost) {
   /* You can leave this routine empty if you're an undergrad. If you want */
   /* to use this routine, you'll need to change the value of the LINKCHANGE */
   /* constant definition in prog3.c from 0 to 1 */
+  connect_costs1[linkid] = newcost;
+  rtinit0();
+  rtinit1();
+  rtinit2();
+  rtinit3();
 }
 
